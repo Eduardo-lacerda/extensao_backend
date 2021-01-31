@@ -8,6 +8,6 @@ module.exports = function(app) {
     router.put('/:highlightId',highlights.update_highlight);
     router.delete('/:highlightId',highlights.delete_highlight); */
 
-    const customDomainReroute = require('@turinggroup/serverless-express-custom-domain-middleware').customDomainReroute;
-    app.use(customDomainReroute);
+/*     const customDomainReroute = require('@turinggroup/serverless-express-custom-domain-middleware').customDomainReroute;
+    app.use(customDomainReroute); */
 };
