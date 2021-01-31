@@ -12,7 +12,7 @@ module.exports = mongoose => {
             type: String,
             required: 'Kindly enter the url'
         },
-        iconUrl: {
+        icon_url: {
             type: String,
             required: 'Kindly enter the icon url'
         },
