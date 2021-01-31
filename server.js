@@ -1,3 +1,6 @@
+var child_process = require('child_process');
+child_process.execSync('npm install');
+
 var express = require('express');
 var app = express();
 var port = process.env.PORT || 3000;
