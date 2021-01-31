@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
   
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/highlightsDB'); 
+mongoose.connect('mongodb://extensaoadmin:Lookit2020@kamino.mongodb.umbler.com:51308/extensaousers?authSource=extensaousers&readPreference=primary&appname=MongoDB%20Compass&ssl=false'); 
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
