@@ -12,6 +12,7 @@ app.use((req, res, next) => { //Cria um middleware onde todas as requests passam
         next(); //Não precisa redirecionar, passa para os próximos middlewares que servirão com o conteúdo desejado 
 });
 //----------------
+
 var port = process.env.PORT || 3000;
 var db = require("./api/models");
 var mongoose = db.mongoose;
@@ -27,8 +28,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-var routes = require('./api/routes/highlightsRoutes'); //importing route
-routes(app); //register the route
+var highlightsRoutes = require('./api/routes/highlightsRoutes'); 
+var authRoutes = require('./api/routes/authRoutes'); 
+highlightsRoutes(app); //register the route
+authRoutes(app);
 
 
 app.listen(port);
