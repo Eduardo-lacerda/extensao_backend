@@ -1,9 +1,10 @@
-module.exports = function(app) {
-    var highlights = require('../controllers/highlightsController.js');
-    var router = require("express").Router();
 
-    app.get('/highlights',highlights.list_highlights);
-    app.post('/highlights',highlights.create_highlight);
+const validation = require("../utils/auth");
+var highlightsController = require('../controllers/highlightsController.js');
+
+module.exports = function(app) {
+    app.get('/highlights', validation.auth, highlightsController.list_highlights);
+    app.post('/highlights', validation.auth, highlightsController.create_highlight);
 /*     router.get('/:highlightId',highlights.read_highlights);
     router.put('/:highlightId',highlights.update_highlight);
     router.delete('/:highlightId',highlights.delete_highlight); */

@@ -84,7 +84,7 @@ exports.register = async (req, res) => {
  */
 exports.verify = async (req, res) => {
     const { token } = req.params;
-
+    console.log(req);
     try {
         let verification = await Verification.findOne({
             token,
@@ -178,7 +178,7 @@ exports.login = async (req, res) => {
         jwt.sign(
             payload,
             config.get("jwtSecret"),
-            { expiresIn: 3600 },
+            { expiresIn: 2592000000 },
             (err, token) => {
                 if (err) throw err;
 

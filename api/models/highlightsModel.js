@@ -1,7 +1,7 @@
 module.exports = mongoose => {
     var HighlightSchema = mongoose.Schema({
         xpath: {
-            type: String,
+            type: Object,
             required: 'Kindly enter the xpath'
         },
         text: {
@@ -26,7 +26,7 @@ module.exports = mongoose => {
                 enum: ['yellow', 'orange', 'green']
             }],
             default: ['yellow']
-        }
+        },
     });
       
     const Highlight = mongoose.model('Highlight', HighlightSchema);
