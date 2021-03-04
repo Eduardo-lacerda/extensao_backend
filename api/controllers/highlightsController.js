@@ -10,7 +10,7 @@ var Highlight = mongoose.model('Highlight');
 
 exports.list_highlights = async (req, res) => {
     try {
-        var highlights = await Highlight.find({}, function(err, register){
+        var highlights = await Highlight.find({user_email: req.body.user_email}, function(err, register){
             if (err) {
                 res.status(500).json(error("Server error", res.statusCode));
             }
@@ -51,6 +51,26 @@ exports.create_highlight = async (req, res) => {
             )
         );
     } catch (err) {
+        console.error(err.message);
+        res.status(500).json(error("Server error", res.statusCode));
+    }
+};
+
+exports.delete_highlight = async (req, res) => {
+    try {
+        await Highlight.remove({_id: req.params.highlightId}, function(err) {
+            if(err)
+                res.status(500).json(error("Server error", res.statusCode));
+            else {
+                res.status(201).json(
+                    success(
+                        "highlight_delete_success", null, res.statusCode
+                    )
+                );
+            }
+        });
+    } 
+    catch (err) {
         console.error(err.message);
         res.status(500).json(error("Server error", res.statusCode));
     }

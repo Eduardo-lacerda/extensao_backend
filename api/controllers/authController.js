@@ -84,7 +84,6 @@ exports.register = async (req, res) => {
  */
 exports.verify = async (req, res) => {
     const { token } = req.params;
-    console.log(req);
     try {
         let verification = await Verification.findOne({
             token,
@@ -184,7 +183,7 @@ exports.login = async (req, res) => {
 
                 res
                     .status(200)
-                    .json(success("Login success", { token }, res.statusCode));
+                    .json(success("Login success", { token, user: {name: user.name, email: user.email} }, res.statusCode));
             }
         );
     } catch (err) {

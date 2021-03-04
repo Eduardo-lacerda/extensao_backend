@@ -27,6 +27,10 @@ module.exports = mongoose => {
             }],
             default: ['yellow']
         },
+        user_email: {
+            type: String,
+            required: 'Kindly enter the email'
+        },
     });
       
     const Highlight = mongoose.model('Highlight', HighlightSchema);
