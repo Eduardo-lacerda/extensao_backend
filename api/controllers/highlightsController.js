@@ -14,7 +14,7 @@ exports.list_highlights = async (req, res) => {
             if (err) {
                 res.status(500).json(error("Server error", res.statusCode));
             }
-        }).sort({date: 'descending'});
+        }).sort({creation_date: 'descending'});
 
         if(highlights) {
             res
