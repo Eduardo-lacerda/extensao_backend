@@ -9,13 +9,12 @@ var Highlight = mongoose.model('Highlight');
     
 
 exports.list_highlights = async (req, res) => {
-    console.log(req.user)
     try {
         var highlights = await Highlight.find({user_email: req.user.email}, function(err, register){
             if (err) {
                 res.status(500).json(error("Server error", res.statusCode));
             }
-        });
+        }).sort({date: 'descending'});
 
         if(highlights) {
             res
