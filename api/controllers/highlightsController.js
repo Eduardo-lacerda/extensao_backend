@@ -1,5 +1,4 @@
 const db = require('../models');
-var Highlight = db.highlights;
 const { success, error, validation } = require("../utils/responseApi");
 const { randomString } = require("../utils/common");
 const { validationResult } = require("express-validator");
@@ -42,6 +41,7 @@ exports.create_highlight = async (req, res) => {
         return res.status(422).json(validation(errors.array()));
 
     try {
+        req.body['user_email'] = req.user.email;
         var newHighlight = new Highlight(req.body);
         await newHighlight.save();
 
@@ -56,6 +56,7 @@ exports.create_highlight = async (req, res) => {
                     icon_url: newHighlight.icon_url,
                     color: newHighlight.color,
                     creation_date: newHighlight.creation_date,
+                    user_email: newHighlight.user_email
                 },
                 res.statusCode
             )

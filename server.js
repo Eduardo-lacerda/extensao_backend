@@ -16,7 +16,6 @@ app.use((req, res, next) => { //Cria um middleware onde todas as requests passam
 var port = process.env.PORT || 3000;
 var db = require("./api/models");
 var mongoose = db.mongoose;
-var HighlightRoutes = require('./api/routes/highlightsRoutes');
 var bodyParser = require('body-parser');
   
 // mongoose instance connection url connection
@@ -29,9 +28,11 @@ app.use(bodyParser.json());
 
 
 var highlightsRoutes = require('./api/routes/highlightsRoutes'); 
+var rateRoutes = require('./api/routes/rateRoutes'); 
 var authRoutes = require('./api/routes/authRoutes'); 
 highlightsRoutes(app); //register the route
 authRoutes(app);
+rateRoutes(app);
 
 
 app.listen(port);

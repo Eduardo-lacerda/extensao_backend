@@ -7,6 +7,7 @@ const db = {};
 db.mongoose = mongoose;
 db.url = dbConfig.url;
 db.highlights = require("./highlightsModel.js")(mongoose);
+db.rate = require("./rateModel.js")(mongoose);
 db.users = require("./userModel.js")(mongoose);
 db.verification = require("./verificationModel.js")(mongoose);
 
