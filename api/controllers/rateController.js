@@ -51,7 +51,7 @@ exports.get_rate = async (req, res) => {
             }).sort({creation_date: 'descending'});
             
 
-            if(baseRate && pageRate && comments) {
+            if(baseRate.length > 0 && pageRate.length > 0 && comments) {
                 var rate = {
                     base_rate: baseRate[0].average,
                     page_rate: pageRate[0].average,
