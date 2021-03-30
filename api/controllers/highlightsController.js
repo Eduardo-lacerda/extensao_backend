@@ -9,15 +9,13 @@ var Highlight = mongoose.model('Highlight');
 
 exports.list_highlights = async (req, res) => {
     try {
+        var conditions = {user_email: req.user.email};
         if(req.query['text']) {
-            var highlights = await Highlight.find({user_email: req.user.email, text: { "$regex": req.query.text, "$options": "i" }}, function(err, register){
-                if (err) {
-                    res.status(500).json(error("Server error", res.statusCode));
-                }
-            }).sort({creation_date: 'descending'});
+            conditions['text'] = { "$regex": req.query.text, "$options": "i" };
         }
-        else {
-            var highlights = await Highlight.find({user_email: req.user.email}, function(err, register){
+        if(req.query.url) {
+            conditions['url'] = req.query.url;
+            var highlights = await Highlight.find(conditions, function(err, register){
                 if (err) {
                     res.status(500).json(error("Server error", res.statusCode));
                 }
