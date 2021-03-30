@@ -56,7 +56,7 @@ exports.create_highlight = async (req, res) => {
                     icon_url: newHighlight.icon_url,
                     color: newHighlight.color,
                     creation_date: newHighlight.creation_date,
-                    user_email: newHighlight.user_email
+                    user_email: req.user.email
                 },
                 res.statusCode
             )
