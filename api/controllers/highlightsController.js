@@ -15,12 +15,13 @@ exports.list_highlights = async (req, res) => {
         }
         if(req.query.url) {
             conditions['url'] = req.query.url;
-            var highlights = await Highlight.find(conditions, function(err, register){
-                if (err) {
-                    res.status(500).json(error("Server error", res.statusCode));
-                }
-            }).sort({creation_date: 'descending'});
         }
+
+        var highlights = await Highlight.find(conditions, function(err, register){
+            if (err) {
+                res.status(500).json(error("Server error", res.statusCode));
+            }
+        }).sort({creation_date: 'descending'});
 
         if(highlights) {
             res
