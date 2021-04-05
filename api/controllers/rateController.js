@@ -44,7 +44,7 @@ exports.get_rate = async (req, res) => {
                 }
             });
 
-            var comments = await Rate.find({page_url: req.query.pageUrl}, 'rate_number comment user_name user_email creation_date', function(err, register){
+            var comments = await Rate.find({base_url: req.query.baseUrl}, 'rate_number comment user_name user_email creation_date', function(err, register){
                 if (err) {
                     res.status(500).json(error("Server error", res.statusCode));
                 }
