@@ -71,10 +71,27 @@ exports.list_others_highlights_authenticated = async (req, res) => {
             }
         }).sort({creation_date: 'descending'});
 
+        conditions['user_email'] = req.user.email;
+        var mineHighlights = await Highlight.find(conditions, function(err, register){
+            if (err) {
+                res.status(500).json(error("Server error", res.statusCode));
+            }
+        }).sort({creation_date: 'descending'});
+
+        var newHighlights = highlights.filter(otherHighlight => {
+            var condition = true;
+            mineHighlights.forEach(mineHighlight => {
+                if(otherHighlight.text == mineHighlight.text) {
+                    condition = false;
+                }
+            });
+            return condition;
+        });
+
         if(highlights) {
             res
             .status(200)
-            .json(success('list_others_highlights', { highlights }, res.statusCode));
+            .json(success('list_others_highlights', { newHighlights }, res.statusCode));
         }
     } catch (err) {
         console.error(err.message);
