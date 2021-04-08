@@ -87,11 +87,11 @@ exports.list_others_highlights_authenticated = async (req, res) => {
             });
             return condition;
         });
-
+        highlights = newHighlights;
         if(highlights) {
             res
             .status(200)
-            .json(success('list_others_highlights', { newHighlights }, res.statusCode));
+            .json(success('list_others_highlights', { highlights }, res.statusCode));
         }
     } catch (err) {
         console.error(err.message);
