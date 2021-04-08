@@ -58,6 +58,30 @@ exports.list_others_highlights = async (req, res) => {
     }
 };
 
+exports.list_others_highlights_authenticated = async (req, res) => {
+    try {
+        var conditions = {user_email: {$ne: req.user.email}};
+        if(req.query.url) {
+            conditions['url'] = req.query.url;
+        }
+
+        var highlights = await Highlight.find(conditions, function(err, register){
+            if (err) {
+                res.status(500).json(error("Server error", res.statusCode));
+            }
+        }).sort({creation_date: 'descending'});
+
+        if(highlights) {
+            res
+            .status(200)
+            .json(success('list_others_highlights', { highlights }, res.statusCode));
+        }
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json(error("Server error", res.statusCode));
+    }
+};
+
 exports.create_highlight = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty())
