@@ -51,15 +51,23 @@ exports.get_rate = async (req, res) => {
             }).sort({creation_date: 'descending'});
             
 
-            if(baseRate.length > 0 && pageRate.length > 0 && comments) {
+            if(baseRate.length > 0) {
                 var rate = {
                     base_rate: baseRate[0].average,
-                    page_rate: pageRate[0].average,
                     comments: comments
+                }
+                if(pageRate.length == 0) {
+                    rate['page_rate'] = null;
+                }
+                else {
+                    rate['page_rate'] = pageRate[0].average
                 }
                 res
                 .status(200)
                 .json(success('get_rate_success', { rate }, res.statusCode));
+            }
+            else {
+                res.status(400).json(error("No Rating"));
             }
         }
         else {
