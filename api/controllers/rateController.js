@@ -44,7 +44,7 @@ exports.get_rate = async (req, res) => {
                 }
             });
 
-            var comments = await Rate.find({base_url: req.query.baseUrl}, 'rate_number comment user_name user_email creation_date', function(err, register){
+            var comments = await Rate.find({base_url: req.query.baseUrl, comment: {$ne: ' '}}, 'rate_number comment user_name user_email creation_date', function(err, register){
                 if (err) {
                     res.status(500).json(error("Server error", res.statusCode));
                 }
@@ -87,9 +87,11 @@ exports.create_rate = async (req, res) => {
     try {
         req.body['user_email'] = req.user.email;
         req.body['user_name'] = req.user.name;
+        if(req.body.comment == "") {
+            req.body.comment = " ";
+        }
         var newRate = new Rate(req.body);
         await newRate.save();
-
         res.status(201).json(
             success(
                 "rate_creation_success",
