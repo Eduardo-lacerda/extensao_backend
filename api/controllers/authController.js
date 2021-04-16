@@ -28,7 +28,7 @@ exports.register = async (req, res) => {
         if (user)
             return res
                 .status(422)
-                .json(validation({ msg: "Email already registered" }));
+                .json(validation({ msg: "Esse e-mail já está registrado. Por favor utilize outro." }));
 
         let newUser = new User({
             name,
@@ -150,12 +150,12 @@ exports.login = async (req, res) => {
         // Check the email
         // If there's not exists
         // Throw the error
-        if (!user) return res.status(422).json(validation("Invalid credentials"));
+        if (!user) return res.status(422).json(validation("Senha ou e-mail inválidos."));
 
         // Check the password
         let checkPassword = await bcrypt.compare(password, user.password);
         if (!checkPassword)
-            return res.status(422).json(validation("Invalid credentials"));
+            return res.status(422).json(validation("Senha ou e-mail inválidos."));
 
         // Check user if not activated yet
         // If not activated, send error response

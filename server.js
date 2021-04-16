@@ -1,6 +1,6 @@
 var child_process = require('child_process');
 child_process.execSync('npm install');
-
+const dbConfig = require("./config/db.config.js");
 var express = require('express');
 var app = express();
 
@@ -20,7 +20,7 @@ var bodyParser = require('body-parser');
   
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://extensaoadmin:Lookit2020@kamino.mongodb.umbler.com:51308/extensaousers?authSource=extensaousers&readPreference=primary&appname=MongoDB%20Compass&ssl=false'); 
+mongoose.connect(dbConfig.url); 
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
