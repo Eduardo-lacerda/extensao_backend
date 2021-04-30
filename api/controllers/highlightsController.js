@@ -131,6 +131,38 @@ exports.create_highlight = async (req, res) => {
     }
 };
 
+exports.create_highlight_not_authenticated = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty())
+        return res.status(422).json(validation(errors.array()));
+
+    try {
+        req.body['user_email'] = 'not_authenticated';
+        var newHighlight = new Highlight(req.body);
+        await newHighlight.save();
+
+        res.status(201).json(
+            success(
+                "highlight_creation_success",
+                {
+                    id: newHighlight._id,
+                    xpath: newHighlight.xpath,
+                    text: newHighlight.text,
+                    url: newHighlight.url,
+                    icon_url: newHighlight.icon_url,
+                    color: newHighlight.color,
+                    creation_date: newHighlight.creation_date,
+                    user_email: req.user.email
+                },
+                res.statusCode
+            )
+        );
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json(error("Server error", res.statusCode));
+    }
+};
+
 exports.delete_highlight = async (req, res) => {
     try {
         await Highlight.remove({_id: req.params.highlightId}, function(err) {
