@@ -137,7 +137,7 @@ exports.create_highlight_not_authenticated = async (req, res) => {
         return res.status(422).json(validation(errors.array()));
 
     try {
-        req.body['user_email'] = 'not_authenticated';
+        req.body['user_email'] = req.user.email;
         var newHighlight = new Highlight(req.body);
         await newHighlight.save();
 
